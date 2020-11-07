@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Rubick {
 
-	public static String FILACOLUMNA = "Inserta el numero del tamaño de la matriz NxN: ";
+	public static String FILACOLUMNA = "Inserta el numero del tamaÃ±o de la matriz NxN: ";
 	public static String JUGADOR1 = "Jugador1 inserta el numero de columna que vas a mover: ";
 	public static String JUGADOR2 = "Jugador2 inserta el numero de fila que vas a mover: ";
 	public static String CELDAS = "Inserta el nomero de celdas que quieres mover: ";
@@ -62,37 +62,145 @@ public class Rubick {
 
 	// FUNCION QUE COMPRUEBA FILA A FILA SI HAY 3 ELEMENTOS JUNTOS IGUALES, LOS SUMA
 	// EN TOTAL Y LOS PONE A 0
-	public static int puntosFilas(int[][] matriz) {
-		int suma = 0;
-		for (int i = 0; i < matriz.length; i++) {
-			for (int j = matriz[0].length - 1; j > 1; j--) {
-				if (matriz[i][j] == matriz[i][j - 1] && matriz[i][j] == matriz[i][j - 2]) {
-					suma += matriz[i][j] * 3;
-					matriz[i][j] = 0;
-					matriz[i][j - 1] = 0;
-					matriz[i][j - 2] = 0;
+	//FUNCION QUE COMPRUEBA EL VALOR DE LAS FILAS ADYACENTES A LA SELECCIONADA SI HAY 3 ELEMENTOS JUNTOS IGUALES SE SUMAN Y 
+		//SE PONEN A 0
+		public static int puntosColumnas(int[][] matriz, int fila, int filas, int columnas) {
+			int suma=0;
+			for (int j = 0; j < columnas; j++) {
+				if(fila==0) {
+					if(matriz[fila][j]==matriz[fila+1][j] && matriz[fila][j]==matriz[fila+2][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila+1][j]=0;
+						matriz[fila+2][j]=0;
+					}
+				}else if(fila==filas-1)	{
+					if(matriz[fila][j]==matriz[fila-1][j] && matriz[fila][j]==matriz[fila-2][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila-1][j]=0;
+						matriz[fila-2][j]=0;
+					}
+				}else if(fila==1){
+					if(matriz[fila][j]==matriz[fila-1][j] && matriz[fila][j]==matriz[fila+1][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila-1][j]=0;
+						matriz[fila+1][j]=0;
+					}
+					if(matriz[fila][j]==matriz[fila+1][j] && matriz[fila][j]==matriz[fila+2][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila+1][j]=0;
+						matriz[fila+2][j]=0;
+					}
+					
+				}else if(fila==filas-2) {
+					if(matriz[fila][j]==matriz[fila-1][j] && matriz[fila][j]==matriz[fila+1][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila-1][j]=0;
+						matriz[fila+1][j]=0;
+					}
+					if(matriz[fila][j]==matriz[fila-1][j] && matriz[fila][j]==matriz[fila-2][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila-1][j]=0;
+						matriz[fila-2][j]=0;
+					}
+					
+				}else {
+					if(matriz[fila][j]==matriz[fila-1][j] && matriz[fila][j]==matriz[fila+1][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila-1][j]=0;
+						matriz[fila+1][j]=0;
+					}
+					if(matriz[fila][j]==matriz[fila+1][j] && matriz[fila][j]==matriz[fila+2][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila+1][j]=0;
+						matriz[fila+2][j]=0;
+					}
+					if(matriz[fila][j]==matriz[fila-1][j] && matriz[fila][j]==matriz[fila-2][j]) {
+						suma += matriz[fila][j]*3;
+						matriz[fila][j]=0;
+						matriz[fila-1][j]=0;
+						matriz[fila-2][j]=0;
+					}
 				}
 			}
+			return suma;
 		}
-		return suma;
-	}
-
-	// FUNCION QUE COMPRUEBA COLUMNA A COLUMNA SI HAY 3 ELEMENTOS JUNTOS IGUALES,
-	// LOS SUMA EN TOTAL Y LOS PONE A 0
-	public static int puntosColumnas(int[][] matriz) {
-		int suma = 0;
-		for (int j = 0; j < matriz[0].length; j++) {
-			for (int i = matriz.length - 1; i > 1; i--) {
-				if (matriz[i][j] == matriz[i - 1][j] && matriz[i][j] == matriz[i - 2][j]) {
-					suma += matriz[i][j] * 3;
-					matriz[i][j] = 0;
-					matriz[i - 1][j] = 0;
-					matriz[i - 2][j] = 0;
-				}
+		
+		// FUNCION QUE COMPRUEBA COLUMNAS ADYACENTES A LA SELECCIONADA PARA SABER SI HAY
+		// 3 ELEMENTOS JUNTOS, SUMARLOS Y PONERLOS A 0
+		public static int puntosFilas(int[][] matriz, int columna, int columnas, int filas) {
+			int suma = 0;
+			for (int i = 0; i < filas; i++) {
+				if (columna == 0) {
+					if (matriz[i][columna] == matriz[i][columna + 1] && matriz[i][columna] == matriz[i][columna + 2]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna + 1] = 0;
+						matriz[i][columna + 2] = 0;
+					}
+				} else if (columna == columnas - 1) {
+					if (matriz[i][columna] == matriz[i][columna - 1] && matriz[i][columna] == matriz[i][columna - 2]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna - 1] = 0;
+						matriz[i][columna - 2] = 0;
+					}
+				} else if(columna==1){
+					if(matriz[i][columna]==matriz[i][columna-1] && matriz[i][columna]==matriz[i][columna+1]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna + 1] = 0;
+						matriz[i][columna - 1] = 0;
+					}
+					if (matriz[i][columna] == matriz[i][columna + 1] && matriz[i][columna] == matriz[i][columna + 2]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna + 1] = 0;
+						matriz[i][columna + 2] = 0;
+					}					
+				}else if(columna==columnas-2) {
+					if(matriz[i][columna]==matriz[i][columna-1] && matriz[i][columna]==matriz[i][columna+1]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna + 1] = 0;
+						matriz[i][columna - 1] = 0;
+					}
+					if (matriz[i][columna] == matriz[i][columna - 1] && matriz[i][columna] == matriz[i][columna - 2]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna - 1] = 0;
+						matriz[i][columna - 2] = 0;
+					}
+				}else {
+					if(matriz[i][columna]==matriz[i][columna-1] && matriz[i][columna]==matriz[i][columna+1]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna + 1] = 0;
+						matriz[i][columna - 1] = 0;
+					}
+					if (matriz[i][columna] == matriz[i][columna - 1] && matriz[i][columna] == matriz[i][columna - 2]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna - 1] = 0;
+						matriz[i][columna - 2] = 0;
+					}
+					if (matriz[i][columna] == matriz[i][columna + 1] && matriz[i][columna] == matriz[i][columna + 2]) {
+						suma += matriz[i][columna] * 3;
+						matriz[i][columna] = 0;
+						matriz[i][columna + 1] = 0;
+						matriz[i][columna + 2] = 0;
+					}					
+				}				
 			}
+			return suma;
 		}
-		return suma;
-	}
 
 	// METODO PARA CAMBIAR EL VALOR DE LAS CELDAS A UN NUMERO ALEATORIO CUANDO SON
 	// DIFERENTES A 0
@@ -159,7 +267,7 @@ public class Rubick {
 						System.out.println(CELDAS);// PIDO EL NUMERO DE CELDAS QUE VOY A DESPLAZAR
 						desplazamientos = sc.nextInt();
 						desplazarColumna(matriz, n, columna, desplazamientos);// HAGO LOS CAMBIOS EN LA MATRIZ
-						puntosJugador1 += puntosFilas(matriz);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN LA
+						puntosJugador1 += puntosFilas(matriz,columna,n,n);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN LA
 																// MATRIZ
 						mostrarMatriz(matriz);
 
@@ -181,7 +289,7 @@ public class Rubick {
 						System.out.println(CELDAS); // PIDO EL NUMERO DE CELDAS QUE VOY A DESPLAZAR
 						desplazamientos = sc.nextInt();
 						desplazarFila(matriz, n, fila, desplazamientos); // HAGO LOS CAMBIOS EN LA MATRIZ
-						puntosJugador2 += puntosColumnas(matriz);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN
+						puntosJugador2 += puntosColumnas(matriz,fila,n,n);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN
 																	// LA MATRIZ
 						mostrarMatriz(matriz);
 						System.out.println(PUNTOS1 + puntosJugador1);// MUESTRO LOS PUNTOS DE LOS JUGADORES
@@ -246,7 +354,7 @@ public class Rubick {
 							desplazamientos = sc.nextInt();
 							desplazarColumna(matriz, filas, columna, desplazamientos);// HAGO LOS CAMBIOS EN LA
 																							// MATRIZ
-							puntosJugador1 += puntosFilas(matriz);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN
+							puntosJugador1 += puntosFilas(matriz,columna,columnas,filas);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN
 																	// LA MATRIZ
 							cambiarNumeros(matriz);// HACEMOS ALEATORIOS LOS NUMEROS QUE NO SON 0
 							mostrarMatriz(matriz);
@@ -268,7 +376,7 @@ public class Rubick {
 							System.out.println(CELDAS); // PIDO EL NUMERO DE CELDAS QUE VOY A DESPLAZAR
 							desplazamientos = sc.nextInt();
 							desplazarFila(matriz, columnas, fila, desplazamientos); // HAGO LOS CAMBIOS EN LA MATRIZ
-							puntosJugador1 += puntosColumnas(matriz);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS
+							puntosJugador1 += puntosColumnas(matriz,fila,filas,columnas);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS
 																		// EN LA MATRIZ
 							cambiarNumeros(matriz);// HACEMOS ALEATORIOS LOS NUMEROS QUE NO SON 0
 							mostrarMatriz(matriz);
@@ -305,7 +413,7 @@ public class Rubick {
 							desplazamientos = sc.nextInt();
 							desplazarColumna(matriz, filas, columna, desplazamientos);// HAGO LOS CAMBIOS EN LA
 																							// MATRIZ
-							puntosJugador2 += puntosFilas(matriz);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN
+							puntosJugador2 += puntosFilas(matriz,columna,columnas,filas);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS EN
 																	// LA MATRIZ
 							cambiarNumeros(matriz);// HACEMOS ALEATORIOS LOS NUMEROS QUE NO SON 0
 							mostrarMatriz(matriz);
@@ -327,7 +435,7 @@ public class Rubick {
 							System.out.println(CELDAS); // PIDO EL NUMERO DE CELDAS QUE VOY A DESPLAZAR
 							desplazamientos = sc.nextInt();
 							desplazarFila(matriz, columnas, fila, desplazamientos); // HAGO LOS CAMBIOS EN LA MATRIZ
-							puntosJugador2 += puntosColumnas(matriz);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS
+							puntosJugador2 += puntosColumnas(matriz,fila,filas,columnas);// SUMO LOS PUNTOS OBTENIDOS DESPUES DE LOS CAMBIOS
 																		// EN LA MATRIZ
 							cambiarNumeros(matriz);// HACEMOS ALEATORIOS LOS NUMEROS QUE NO SON 0
 							mostrarMatriz(matriz);
